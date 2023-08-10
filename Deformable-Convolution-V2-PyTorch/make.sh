@@ -9,6 +9,9 @@
 #SBATCH --time=12:00:00
 #SBATCH --mail-user=ltfon@ulaval.ca
 #SBATCH --mail-type=ALL
+module load python/3.8
+module load scipy-stack/2023a 
+module load cuda
 
 echo "Current working directory: `pwd`"
 echo "Starting run at: `date`"
@@ -19,6 +22,7 @@ echo "Running task from array $SLURM_ARRAY_TASK_ID"
 echo ""
 # ---------------------------------------------------------------------
 source ~/envs/protoP/bin/activate
+
 python setup.py build install 
 
 # ---------------------------------------------------------------------

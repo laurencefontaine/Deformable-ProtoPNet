@@ -10,6 +10,7 @@ import numpy as np
 import argparse
 import re
 
+#from dlutils.sampler import MultipleSampler
 from helpers import makedir
 import model
 import push
@@ -19,7 +20,7 @@ from log import create_logger
 from preprocess import mean, std, preprocess_input_function
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-gpuid', nargs=1, type=str, default='0') # python3 main.py -gpuid=0,1,2,3
+parser.add_argument('-gpuid', nargs=1, type=str, default='0,1') # python3 main.py -gpuid=0,1,2,3
 parser.add_argument('-m', nargs=1, type=float, default=None)
 parser.add_argument('-last_layer_fixed', nargs=1, type=str, default=None)
 parser.add_argument('-subtractive_margin', nargs=1, type=str, default=None)
@@ -91,7 +92,8 @@ base_architecture_type = re.match('^[a-z]*', base_architecture).group(0)
 
 from settings import train_dir, test_dir, train_push_dir
 
-model_dir = './saved_models/' + base_architecture + '/' + train_dir + '/' + experiment_run + '/'
+#model_dir = './saved_models/' + base_architecture + '/' + train_dir + '/' + experiment_run + '/'
+model_dir = './dproto_output/' + base_architecture + '/' + experiment_run + '/'
 makedir(model_dir)
 shutil.copy(src=os.path.join(os.getcwd(), __file__), dst=model_dir)
 shutil.copy(src=os.path.join(os.getcwd(), 'settings.py'), dst=model_dir)

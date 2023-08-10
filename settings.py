@@ -1,23 +1,26 @@
-base_architecture = 'resnet50'
-img_size = 224
+import datetime
 
-experiment_run = '001'
+base_architecture = 'vgg19'
+img_size = 224
+current_datetime = datetime.datetime.today().strftime("%Y%m%d-%H%M%S")
+experiment_run = current_datetime
+#experiment_run = '001'
 
 # Full set: './datasets/CUB_200_2011/'
 # Cropped set: './datasets/cub200_cropped/'
 # Stanford dogs: './datasets/stanford_dogs/'
-data_path = './datasets/CUB_200_2011/'
+data_path = './datasets/cub200_cropped/'
 #120 classes in stanford_dogs, 200 in CUB_200_2011
 if 'stanford_dogs' in data_path:
     num_classes = 120
 else:
     num_classes = 200
 
-train_dir = data_path + 'train/'
+train_dir = data_path + 'train_cropped_augmented/'
 # Cropped set: train_cropped & test_cropped
 # Full set: train & test
-test_dir = data_path + 'test/'
-train_push_dir = data_path + 'train/'
+test_dir = data_path + 'test_cropped/'
+train_push_dir = data_path + 'train_cropped/'
 train_batch_size = 80
 test_batch_size = 100
 train_push_batch_size = 75
@@ -41,7 +44,7 @@ warm_pre_prototype_optimizer_lrs = {'add_on_layers': 3e-3,
                       'features': 1e-4}
 
 last_layer_optimizer_lr = 1e-4
-last_layer_fixed = True
+#last_layer_fixed = True
 
 coefs = {
     'crs_ent': 1,
@@ -50,12 +53,12 @@ coefs = {
     'l1': 1e-2,
     'offset_bias_l2': 8e-1,
     'offset_weight_l2': 8e-1,
-    'orthogonality_loss': 0.1
+    'orthogonality_loss': 0.001
 }
 
 subtractive_margin = True
 
-num_train_epochs = 31
+num_train_epochs = 21
 num_warm_epochs = 5
 num_secondary_warm_epochs = 5
 push_start = 20
